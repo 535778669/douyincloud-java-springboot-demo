@@ -41,4 +41,16 @@ public class HelloController {
         }
         return response;
     }
+    @PostMapping("/api/aast")
+    public JsonResponse aast(@RequestBody SetNameRequest setNameRequest) {
+        JsonResponse response = new JsonResponse();
+        try {
+            HelloService helloService = factory.getHelloService(setNameRequest.getTarget());
+            helloService.setName(setNameRequest.getTarget(),setNameRequest.getName());
+            response.success("");
+        }catch (Exception e){
+            response.failure("unknown error");
+        }
+        return response;
+    }
 }
